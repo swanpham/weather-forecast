@@ -1,0 +1,138 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    /* border: 1px solid black; */
+    font-family: 'poppin', sans-serif
+
+}
+:root {
+    --primary: #e7f3f5;
+    --secondary: rgb(14, 6, 6);
+    --tertiary: rgb(97, 83, 7);
+    --grey: rgb(58, 30, 30);
+    font-size: 62.5%;
+}
+header {
+    background: var(--secondary);
+    padding: 30px 25px;
+    border-bottom: 5px solid var(--primary);
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    color: var(--tertiary);
+}
+body {
+    background: #ededed;
+    color: var(--grey);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+footer {
+    width: 100%;
+    background: var(--secondary);
+    color: var(--tertiary);
+    font-size: 2.4rem;
+    padding: 20px;
+    border-top: 5px solid var(--primary);
+}
+.page-content {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 25px auto;
+    width: 95%;
+}
+#page {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.h2{
+    padding: 5px 0px;
+    font-size: 20px;
+    display: flex;
+    justify-content: left;
+    color: black;
+
+}
+#search{
+    flex: 1;
+}
+.finder{
+     
+    background-image : url('../images/accounting-app-for-iPhone-1074x483.jpg');
+    width: 20%;
+    border-radius: 1rem;
+    padding: 12px 12px 12px;
+    background-color: cornflowerblue;
+    
+
+}
+
+.finder-display{
+    display: inline-flex;
+
+}
+.search-city{
+    
+    padding: 5px 0px;
+    font-size: 25px;
+    display: flex;
+    justify-content: left;
+    color: black;
+}
+.city-content{
+    /* display: flex; */
+    padding-block: 5px 15px;
+    text-align: center;
+    width: 100%;
+    border-radius: 1rem;    
+}
+
+#display {
+    flex: 3;
+}
+.city-display{
+    border: 1px solid rgb(53, 52, 52);
+    border-radius: 1rem;
+    padding: 22px;
+    font-size: 15px;
+    width: 90%;
+}
+
+.current-display{         
+    
+    border: 1px solid rgb(36, 35, 35);
+    border-radius: 1rem;
+    padding: 5px 10px 50px;
+    font-size: 20px;
+    
+    
+}
+
+.line{
+    padding: 10px 10px 5px;
+    font-size: 20px;
+    
+
+}
+.forecast-display {
+    
+    padding: 5px 10px 200px;
+    font-size: 20px;
+}
+.forecast-cards {
+    display: flex;
+    
+    
+}
+.card {
+    flex: 1;
+    
+}
