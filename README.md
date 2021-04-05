@@ -7,6 +7,9 @@
 
 ## GIVEN a weather dashboard with form inputs
 
+![image](https://user-images.githubusercontent.com/78882909/113533121-21889200-959b-11eb-9d2d-96fa285abe20.png)
+
+
 ## Issue # 1
 
 * WHEN I search for a city
