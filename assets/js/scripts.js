@@ -1,11 +1,16 @@
 var apikey="791b6fcc8fd8a9bee714ad60b0b4cef7"
+var historyarray=[]
+gethistory()
+showhistory()
+gocode( 'toronto')
+
 
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
 // http://api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 
 function gocode(data) {
-    var url=`http://api.openweathermap.org/geo/1.0/direct?q=${data}&limit=1&appid=${apikey}`
+    var url=`https://api.openweathermap.org/geo/1.0/direct?q=${data}&limit=1&appid=${apikey}`
     fetch (url) .then (function(response){
         if (response.ok){
         response.json().then(function(data){
@@ -21,6 +26,7 @@ function gocode(data) {
 }
 function getweather(data) {
     displaycity(data)
+    sethistory(data)
     var url=`https://api.openweathermap.org/data/2.5/onecall?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${apikey}`
     fetch (url) .then (function(response){
         if (response.ok){
@@ -37,12 +43,12 @@ function getweather(data) {
     })
 
 }
-gocode("toronto")
+
 
 function currentweather(data){
 
     var tempTitle=$('<span>')
-    .text('temperature')
+    .text('Temperature: ')
     var temDisplay=$('<span>')
     .text(`${data.current.temp} °C`)
     var tempDiv=$('<div>')
@@ -51,7 +57,7 @@ function currentweather(data){
     .append(temDisplay)
 
     var windTitle=$('<span>')
-    .text('wind')
+    .text('Wind: ')
     var windDisplay=$('<span>')
     .text(`${data.current.wind_speed} km/h`)
     var windDiv=$('<div>')
@@ -60,7 +66,7 @@ function currentweather(data){
     .append(windDisplay)
 
     var humidityTitle=$('<span>')
-    .text('Humidity')
+    .text('Humidity: ')
     var humidityDisplay=$('<span>')
     .text(`${data.current.humidity} %`)
     var humidityDiv=$('<div>')
@@ -69,9 +75,10 @@ function currentweather(data){
     .append(humidityDisplay)
 
     var uvTitle=$('<span>')
-    .text('UV index')
+    .text('UV index : ')
     var uvDisplay=$('<span>')
     .text(data.current.uvi)
+    .attr('id', 'uv-color')
     var uvDiv=$('<div>')
     .addClass('line')
     .append(uvTitle)
@@ -95,7 +102,7 @@ function currentweather(data){
     .find('h2')
     .text(`${currentText} - ${date( data.current.dt )}`)
 
-    
+    uvcolor()
 }
 
 function displaycity (data){
@@ -119,14 +126,14 @@ function date(date){
 }
 
 function forecastweather(data){
-    console.log(data)
+    
     $('.forecast-cards')
     .html('')
     for(var i=0; i<5; i++){
         
     
     var tempTitle=$('<span>')
-    .text('temperature')
+    .text('Temperature: ')
     var temDisplay=$('<span>')
     .text(`${data.daily[i+1].temp.max} °C`)
     var tempDiv=$('<div>')
@@ -137,7 +144,7 @@ function forecastweather(data){
    
 
     var humidityTitle=$('<span>')
-    .text('Humidity')
+    .text('Humidity: ')
     var humidityDisplay=$('<span>')
     .text(`${data.daily[i+1].humidity} %`)
     var humidityDiv=$('<div>')
@@ -169,4 +176,70 @@ function forecastweather(data){
     }
 
 
+}
+
+function sethistory (data){
+   
+    var city= data[0].name
+    historyarray.push(city)
+    var json = JSON.stringify(historyarray)
+    localStorage.setItem('weather', json)
+    showhistory()
+}
+
+function gethistory (){
+    historyarray=[]
+    if (JSON.parse(localStorage.getItem('weather'))){
+        historyarray=JSON.parse(localStorage.getItem('weather'))
+    }
+}
+
+function showhistory(){
+    
+    $('#history')
+        .html('')
+    for(var i = 0; i < historyarray.length; i++){
+        var li = $ ('<li>')
+            .text (historyarray[i])
+        $('#history')
+            .append(li)    
+    }
+}
+
+
+
+$('#search').submit(function(event) {
+    event.preventDefault()
+
+    var value = $(this)
+        .find('input')
+        .val()
+        .trim()
+        gocode(value)
+})
+
+$('#history').on('click', 'li', function(){
+    var item = $(this)
+        .text()          
+    gocode(item)
+})
+
+function uvcolor(){
+    var value = $('#uv-color')
+    .text()
+    var color;
+    if( value <3){
+        color = 'green'
+    } else if (value >= 3 && value <6){
+        color = 'yellow'
+    } else if(value >=6 && value <9){
+        color = 'orange'      
+    } else if (value >=9){
+        color = 'red'    
+    }
+
+    $('#uv-color')
+    .css('background-color', color)
+
+    
 }
