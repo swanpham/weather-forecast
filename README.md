@@ -39,3 +39,14 @@
 * WHEN I click on a city in the search history
 
 * THEN I am again presented with current and future conditions for that city
+
+## Built With
+* HTML
+* CSS
+* [jQuery](https://jquery.com/)
+* JavaScript
+* [OpenWeather API](https://openweathermap.org/)
+* [FontAwesome](https://fontawesome.com/)
+
+## Website
+https://swanpham.github.io/weather-forecast/
